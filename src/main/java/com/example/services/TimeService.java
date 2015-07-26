@@ -30,7 +30,7 @@ public class TimeService {
     @Path("/hello/{param}")
     public TestDto getHello(@PathParam("param") String param) {
     	TestDto dto = new TestDto();
-    	dto.setStr("Hello!" + param);
+    	dto.setStr("Hello!!" + param);
         return dto;
     }
 
