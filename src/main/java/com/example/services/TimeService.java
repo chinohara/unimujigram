@@ -1,10 +1,6 @@
 package com.example.services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.TimeZone;
 
@@ -13,7 +9,6 @@ import com.common.CommonUtil;
 import com.example.models.InstagramRespDto;
 import com.example.models.TestDto;
 import com.example.models.Time;
-import com.example.models.User;
 import com.example.rest.RestClient;
 
 import javax.ws.rs.GET;
@@ -29,7 +24,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Path("/time")
 @Produces(MediaType.APPLICATION_JSON)
 public class TimeService {
-	private Properties properties = new Properties();
 
     @GET
     public Time get() {
