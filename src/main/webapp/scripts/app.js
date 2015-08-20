@@ -2,7 +2,7 @@
 var HTTP = "http://";
 var INSTAGRAM_API_URL = "/services/time/api";
 
-// 1myAppモジュールを作成
+// myAppモジュールを作成
 var app = angular.module('myApp', []);
 
 app.controller('mainCtrl', ['$scope', 'ApiData', function ($scope, ApiData) {
