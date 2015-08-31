@@ -4,9 +4,14 @@ public class CommonConstants {
 	
 	private CommonConstants () {}
 	
-	// InstagramAPI URL
-//	public static String API_URL = "https://api.instagram.com/v1/tags/%e3%83%9f%e3%83%8b%e3%83%81%e3%83%a5%e3%82%a2%e3%83%80%e3%83%83%e3%82%af%e3%82%b9/media/recent?";
-	public static String API_URL = "https://api.instagram.com/v1/tags/babyfashion/media/recent?";
+	// InstagramAPI(Bayas) URL
+	public static String API_URL_BABYS = "https://api.instagram.com/v1/tags/babyfashion/media/recent?";
+
+	// InstagramAPI(Kids) URL
+	public static String API_URL_KIDS = "https://api.instagram.com/v1/tags/kidsfashion/media/recent?";
+	
+	// InstagramAPI(Snap) URL
+	public static String API_URL_SNAP = "https://api.instagram.com/v1/tags/babysnap/media/recent?";
 	
 	// access_token URL
 	public static String ACCESS_TOKEN_URL = "access_token=";
