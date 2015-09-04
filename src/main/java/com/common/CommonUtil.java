@@ -15,27 +15,55 @@ public class CommonUtil {
 	private CommonUtil () {}
 	
 	/**
-	 * API のクライアントのKeyを取得する.
+	 * Instagramの API クライアントのKeyを取得する.
 	 * @return Client API Key
 	 */
 	public static String getClientApiKey() {
+		String clientId = getPropertyValueOrEnvValue("apiClientId","INSTAGRAM_CLIENT_API_KEY");
+		return clientId;
+	}
+	
+	/**
+	 * AWSのAccessKeyを取得する.
+	 * @return AWSのAccessKey
+	 */
+	public static String getAwsAccessKeyId() {
+		String awsAccessKeyId = getPropertyValueOrEnvValue("awsAccessKeyId","AWS_ACCESS_KEY_ID");
+		return awsAccessKeyId;
+	}
+	/**
+	 * AWSのSecretAccessKeyを取得する.
+	 * @return AWSのSecretAccessKey
+	 */
+	public static String getAwsSecretAccessKey() {
+		String clientId = getPropertyValueOrEnvValue("awsSecretAccessKey","AWS_SECRET_ACCESS_KEY");
+		return clientId;
+	}
+	
+	/**
+	 * プロパティファイル or EnvファイルからValueを取得する
+	 * @param プロパティファイルのキー,Envファイルのキー
+	 * @return Value
+	 */
+	private static String getPropertyValueOrEnvValue(String propertyKey, String envKey){
+		String value = "";
 		
 		InputStream inputStream;
-		String clientId = "";
 		Properties properties = new Properties();
 		
-		// Envファイルから、ClientAPIKeyを取得
+		// プロパティファイルから、Valueを取得
 		try {
 			inputStream = new FileInputStream(new File("env.properties"));
 			properties.load(inputStream);
-			clientId =properties.getProperty("apiClientId");
+			value =properties.getProperty(propertyKey);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			// 環境変数から取得
-			clientId = System.getenv("INSTAGRAM_CLIENT_API_KEY");
+			value = System.getenv(envKey);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return clientId;
-	}
+		
+		return value;
+	};
 }

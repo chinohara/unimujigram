@@ -22,8 +22,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class ApiService {
 
     @GET
-    public Time get() {
-        return new Time();
+    public String get() {
+        return "OK";
     }
 
     @GET

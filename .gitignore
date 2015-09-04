@@ -6,3 +6,4 @@ build
 .settings
 .env
 env.properties
+lib

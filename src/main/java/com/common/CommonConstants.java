@@ -24,5 +24,14 @@ public class CommonConstants {
 	
 	// API 取得件数
 	public static String GET_COUNT = "20";
+	
+	// テーブル名 SEARCH_INSTA_TAGS_M
+	public static String TB_SEARCH_INSTA_TAGS_M = "SEARCH_INSTA_TAGS_M";
+	
+	// テーブル名 COUNT_INSTA_TAGS_M
+	public static String TB_COUNT_INSTA_TAGS_M = "COUNT_INSTA_TAGS_M";
+		
+	// テーブル名 INSTA_INFO_T
+	public static String TB_INSTA_INFO_T = "INSTA_INFO_T";
 
 }

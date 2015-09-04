@@ -38,6 +38,12 @@
     		<artifactId>jersey-client</artifactId>
     		<version>1.18.1</version>
 		</dependency>
+        <!-- AWS DynamoDB -->
+	    <dependency>
+	        <groupId>com.amazonaws</groupId>
+	        <artifactId>aws-java-sdk-dynamodb</artifactId>
+	        <version>1.9.0</version>
+	    </dependency>
 
         <!-- jUnit -->
         <dependency>
@@ -74,6 +80,10 @@
 						<program>
 							<mainClass>com.example.batch.CreateDataProcess</mainClass>
 							<name>createData</name>
+						</program>
+						<program>
+							<mainClass>com.example.batch.CreateTables</mainClass>
+							<name>createTables</name>
 						</program>
 					</programs>
 				</configuration>
