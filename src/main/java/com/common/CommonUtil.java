@@ -41,6 +41,15 @@ public class CommonUtil {
 	}
 	
 	/**
+	 * サイトのURLを取得する.
+	 * @return サイトのURL
+	 */
+	public static String getSiteUrl() {
+		String siteUrl = getPropertyValueOrEnvValue("siteUrl","SITE_URL");
+		return siteUrl;
+	}
+	
+	/**
 	 * プロパティファイル or EnvファイルからValueを取得する
 	 * @param プロパティファイルのキー,Envファイルのキー
 	 * @return Value

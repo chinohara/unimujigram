@@ -4,6 +4,12 @@ public class CommonConstants {
 	
 	private CommonConstants () {}
 	
+	// InstagramAPI Base
+	public static String API_URL_BASE = "https://api.instagram.com/v1/tags/";
+	
+	// InstagramAPI after Tag
+	public static String aPI_URL_AFTER_TAG = "/media/recent?";
+	
 	// InstagramAPI(Bayas) URL
 	public static String API_URL_BABYS = "https://api.instagram.com/v1/tags/babyfashion/media/recent?";
 
@@ -33,5 +39,8 @@ public class CommonConstants {
 		
 	// テーブル名 INSTA_INFO_T
 	public static String TB_INSTA_INFO_T = "INSTA_INFO_T";
+	
+	// テーブル名 BATCH_CREATED_TIME_T
+		public static String TB_BATCH_CREATED_TIME_T = "BATCH_CREATED_TIME_T";
 
 }

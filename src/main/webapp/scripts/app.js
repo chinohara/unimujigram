@@ -11,17 +11,20 @@ app.controller('mainCtrl', ['$scope', 'ApiData', function ($scope, ApiData) {
     // 初期ロード処理
     $scope.Reload = function () {
         ApiData.get(INSTAGRAM_API_URL_BABYS).then(function(res){
-            $scope.instagramInfos = res.data.data;
+            // $scope.instaInfos = res.data.instaInfos;
+            $scope.resp = res.data;
             $scope.show_loading = false;
+            $scope.show_photos = true;
             
         });
         $scope.show_loading = true;
+        $scope.show_photos = false;
     };
     
     // BabysPhoto呼び出し処理
     $scope.clickBabys = function() {
     	ApiData.get(INSTAGRAM_API_URL_BABYS).then(function(res){
-            $scope.instagramInfos = res.data.data;
+            $scope.instaInfos = res.data.instaInfos;
             $scope.show_loading = false;
             
         });
@@ -34,8 +37,10 @@ app.controller('mainCtrl', ['$scope', 'ApiData', function ($scope, ApiData) {
             $scope.instagramInfos = res.data.data;
             $scope.show_loading = false;
             
+            
         });
         $scope.show_loading = true;
+        
     };
     
     // Snap呼び出し処理

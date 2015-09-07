@@ -1,9 +1,26 @@
 package com.example.services;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
+import com.amazonaws.services.dynamodbv2.model.QueryRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.common.CommonConstants;
 import com.common.CommonUtil;
+import com.example.db.DynamoDBClient;
+import com.example.models.BatchCreatedTime;
+import com.example.models.InstaInfo;
+import com.example.models.InstaInfoForDisp;
 import com.example.models.InstagramRespDto;
 import com.example.models.Time;
 import com.example.rest.RestClient;
@@ -20,6 +37,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Path("/api")
 @Produces(MediaType.APPLICATION_JSON)
 public class ApiService {
+	
+	// DynamoDBMapper
+	private static DynamoDBMapper mapper = null;
 
     @GET
     public String get() {
@@ -28,10 +48,39 @@ public class ApiService {
 
     @GET
     @Path("babys")
-    public InstagramRespDto getBabys() {		
-		// APIを呼び出す
-        InstagramRespDto dto = apiCall(CommonConstants.API_URL_BABYS);
-        return dto;
+    public InstaInfoForDisp getBabys() {
+    	
+    	// DynamoDBのClient取得
+    	DynamoDBClient dynamoDBClient = new DynamoDBClient(CommonUtil.getAwsAccessKeyId(), CommonUtil.getAwsSecretAccessKey());
+    	mapper = dynamoDBClient.getDynamoDBMapper();
+    	
+    	// バッチ実行時間の取得
+    	BatchCreatedTime batchCreatedTime = new BatchCreatedTime();
+    	batchCreatedTime = mapper.load(BatchCreatedTime.class, 1);
+    	
+    	// 検索条件の指定
+    	InstaInfo CondInstaInfo = new InstaInfo();
+    	CondInstaInfo.setBatchCreatedId(batchCreatedTime.getBatchCreatedDate());
+     
+    	DynamoDBQueryExpression<InstaInfo> queryExpression = new DynamoDBQueryExpression<InstaInfo>()
+    			.withHashKeyValues(CondInstaInfo)
+    			.withScanIndexForward(false);
+    	// 画像データの取得
+     	List<InstaInfo> InstaInfoList = mapper.query(InstaInfo.class, queryExpression);
+     	
+     	InstaInfoForDisp dtoDisp = new InstaInfoForDisp();
+     	dtoDisp.setInstaInfos(InstaInfoList);
+     	try {
+			Long dateTimeLong = new SimpleDateFormat("yyyyMMddHHmm").parse(batchCreatedTime.getBatchCreatedDate()).getTime();
+			dtoDisp.setBatchCreatedDate(dateTimeLong.toString());
+			System.out.println("!!!!!!!!!" + dateTimeLong.toString());
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+     	
+    	
+        return dtoDisp;
     }
     
     @GET

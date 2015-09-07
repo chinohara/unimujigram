@@ -42,15 +42,18 @@ public class CreateTables {
 		// INSTA_INFO_T Table を作成
 		createInstaInfoTb();
 		
+		// BATCH_CREATED_TIME_T Table を作成
+				createBatchCreatedTimeTb();
+		
 		// テーブルを削除したい場合にコメントアウト
-//		dynamoDB.getTable("INSTAGRAM_INFO").delete();
+//		dynamoDB.getTable("INSTA_INFO_T").delete();
 		
     }
 
-	private static void createInstaInfoTb() {
+	private static void createBatchCreatedTimeTb() {
 		// テーブルの存在チェック
-		if (IsExistedTable(CommonConstants.TB_INSTA_INFO_T)) {
-			System.out.println("Existed Table:" + CommonConstants.TB_INSTA_INFO_T);
+		if (IsExistedTable(CommonConstants.TB_BATCH_CREATED_TIME_T)) {
+			System.out.println("Existed Table:" + CommonConstants.TB_BATCH_CREATED_TIME_T);
 			return;
 		}
 		
@@ -64,6 +67,46 @@ public class CreateTables {
         keySchema.add(new KeySchemaElement()
             .withAttributeName("Id")
             .withKeyType(KeyType.HASH));
+
+        CreateTableRequest request = new CreateTableRequest()
+            .withTableName(CommonConstants.TB_BATCH_CREATED_TIME_T)
+            .withKeySchema(keySchema)
+            .withAttributeDefinitions(attributeDefinitions)
+            .withProvisionedThroughput(new ProvisionedThroughput()
+                .withReadCapacityUnits(1L)
+                .withWriteCapacityUnits(1L));
+
+        System.out.println("Issuing CreateTable request for " + CommonConstants.TB_BATCH_CREATED_TIME_T);
+        CreateTableResult createTableResult = dbClient.createTable(request);
+        
+        System.out.println("Created Table:" + createTableResult.toString());
+        return;
+		
+	}
+
+	private static void createInstaInfoTb() {
+		// テーブルの存在チェック
+		if (IsExistedTable(CommonConstants.TB_INSTA_INFO_T)) {
+			System.out.println("Existed Table:" + CommonConstants.TB_INSTA_INFO_T);
+			return;
+		}
+		
+		// テーブル情報の指定
+		ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        attributeDefinitions.add(new AttributeDefinition()
+            .withAttributeName("BatchCreatedId")
+            .withAttributeType("S"));
+        attributeDefinitions.add(new AttributeDefinition()
+        	.withAttributeName("CreateDateUserId")
+        	.withAttributeType("S"));
+
+        ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
+        keySchema.add(new KeySchemaElement()
+            .withAttributeName("BatchCreatedId")
+            .withKeyType(KeyType.HASH));
+        keySchema.add(new KeySchemaElement()
+        	.withAttributeName("CreateDateUserId")
+        	.withKeyType(KeyType.RANGE));
 
         CreateTableRequest request = new CreateTableRequest()
             .withTableName(CommonConstants.TB_INSTA_INFO_T)

@@ -26,11 +26,10 @@
 	            <h1 class="brand-title">Baby snap</h1>
 	            <h4 class="brand-tagline">Instagram viewer for mama and papa</h4>
 	
-	            <nav class="nav">
+	            <!--<nav class="nav">
 	                <ul class="nav-list">
 	                    <li class="nav-item">
 	                    	<div ng-click="clickBabys()">Babys</div>
-	                        <!--<a class="pure-button" href="http://purecss.io">Babys</a>-->
 	                    </li>
 	                    <li class="nav-item">
 	                    	<div ng-click="clickKids()">Kids</div>
@@ -38,7 +37,8 @@
 	                    <li class="nav-item">
 	                    	<div ng-click="clickBabySnap()">#BabySnap</div>
 	                    </li>
-	                </ul>
+	                </ul>-->
+	                
 	        </div>
 	    </div>
 	    
@@ -47,15 +47,17 @@
 	    		<!--<p>Now Loading...</p>-->
 	    		<div class="loader">Loading...</div>
 	  		</div>
-            <div class="pure-u-1 pure-u-md-1-2" ng-repeat="instagramInfo in instagramInfos" ng-hide="show_loading">
-                <a ng-href="{{ instagramInfo.link }}">
-                	<img class="pure-img-responsive" ng-src="{{ instagramInfo.images.low_resolution.url }}">
-                </a>
-                <div class="post-image-meta">
-                	<!--instagram.com@{{ instagramInfo.user.username }}-->
-                    <h6>instagram.com@<span ng-bind="instagramInfo.user.username"></span></6><!--<h6　ng-bind="instagramInfo.user.username"></h6>-->
-                </div>
-            </div> 
+	  		<div ng-show="show_photos">
+	  			<h4>{{resp.batchCreatedDate | date:'medium'}}</h4>
+	            <div class="pure-u-1 pure-u-md-1-2" ng-repeat="instaInfo in resp.instaInfos" ng-hide="show_loading">
+	                <a ng-href="{{ instaInfo.link }}">
+	                	<img class="pure-img-responsive" ng-src="{{ instaInfo.imageUrl }}">
+	                </a>
+	                <div class="post-image-meta">
+	                    <h6>instagram.com@<span ng-bind="instaInfo.userName"></span></6>
+	                </div>
+	            </div> 
+	        </div>
             <div id="page-top">
    				<p><a href="#" id="page-top1">▲</a></p>
 			</div>
