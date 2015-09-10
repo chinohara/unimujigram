@@ -29,7 +29,7 @@ public class CommonConstants {
 	public static String COUNT_URL = "&count=";
 	
 	// API 取得件数
-	public static String GET_COUNT = "20";
+	public static String INSTA_GET_COUNT = "20";
 	
 	// テーブル名 SEARCH_INSTA_TAGS_M
 	public static String TB_SEARCH_INSTA_TAGS_M = "SEARCH_INSTA_TAGS_M";

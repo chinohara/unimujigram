@@ -110,7 +110,7 @@ public class ApiService {
         buf.append(CommonConstants.CLIENT_ID_URL);
         buf.append(CommonUtil.getClientApiKey());
         buf.append(CommonConstants.COUNT_URL);
-        buf.append(CommonConstants.GET_COUNT);
+        buf.append(CommonConstants.INSTA_GET_COUNT);
         String url = buf.toString();
         
         // API 呼び出し

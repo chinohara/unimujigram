@@ -39,8 +39,6 @@ public class CreateDataProcess {
         String dateTimeStr = new SimpleDateFormat("yyyyMMddHHmm").format(datetime);
         System.out.println("dateTimeStart:" + dateTimeStr);
         
-        // Herokuで休眠しないようにアプリにリクエストを送る。
-        
         // DynamoDBのClient取得
      	DynamoDBClient dynamoDBClient = new DynamoDBClient(CommonUtil.getAwsAccessKeyId(), CommonUtil.getAwsSecretAccessKey());
         DynamoDBMapper mapper = dynamoDBClient.getDynamoDBMapper();
@@ -72,7 +70,7 @@ public class CreateDataProcess {
         // Instagramから、タグで数回データの取得
         for (SearchInstaTag searchInstaTag :searchTags) {
         	// タグを元にInstagramからデータを取得
-        	InstagramRespDto dto = apiCall(searchInstaTag.getTag(), CommonConstants.GET_COUNT);
+        	InstagramRespDto dto = apiCall(searchInstaTag.getTag(), CommonConstants.INSTA_GET_COUNT);
         	
         	// 取得したデータの詰替えとカウント
             for (InstagramInfo  instagramInfo : dto.getData()) {
@@ -154,20 +152,6 @@ public class CreateDataProcess {
 		
         return dto;
     }
-    
-    private static void wakeUpSite() {
-    	// APICallを行うクライアント生成
-        RestClient client = new RestClient("admin", "admin");
-        // URLの設定
-        String url = CommonUtil.getSiteUrl();
-        
-        // API 呼び出し
-        String json = client.getString(url, MediaType.APPLICATION_JSON_TYPE);
-        System.out.println("wake up site result:" + json);
-
-    }
-    
-    
     
     /**
 	 * 優先度を判断するため、カウント対象のタグがいくつあるかカウントする

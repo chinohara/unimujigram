@@ -16,20 +16,39 @@ a:focus {
 
 body {
 	font-family:  "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", Meiryo, sans-serif;
-	/*background-color: #F8F8F8;*/
     background: rgb(255, 231, 229);  /*FFE7E5*/
 	color: #737373;
 }
 
+@font-face {
+    font-family: 'M+ 1p black';
+    src: url('../fonts/mplus-1p-black-sub.eot');
+    src: url('../fonts/mplus-1p-black-sub.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/mplus-1p-black-sub.woff') format('woff'),
+    url('../fonts/mplus-1p-black-sub.ttf') format('truetype');
+    
+    font-family: 'M+ 1p light';
+    src: url('../fonts/mplus-1p-light-sub.eot');
+    src: url('../fonts/mplus-1p-light-sub.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/mplus-1p-light-sub.woff') format('woff'),
+    url('../fonts/mplus-1p-light-sub.ttf') format('truetype');
+}
+
 .header {
-	/* font-family: 'Reenie Beanie', cursive; */
-	font-family: 'Cabin Sketch', cursive;
 	font-weight:bold; 
 	color: #383838;
 	
 	text-align: center;
     top: auto;
     /*margin: 3em auto;*/
+}
+
+.header h1{
+	font-family: 'M+ 1p black';
+}
+/*ちびスタお洒落キッズのためのInstagramViewer、。可愛い子ども集まれ for 親バカ*/
+.header h4{
+	font-family: 'M+ 1p light';
 }
 
 .pure-img-responsive {
