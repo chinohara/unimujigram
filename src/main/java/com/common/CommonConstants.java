@@ -41,6 +41,15 @@ public class CommonConstants {
 	public static String TB_INSTA_INFO_T = "INSTA_INFO_T";
 	
 	// テーブル名 BATCH_CREATED_TIME_T
-		public static String TB_BATCH_CREATED_TIME_T = "BATCH_CREATED_TIME_T";
+	public static String TB_BATCH_CREATED_TIME_T = "BATCH_CREATED_TIME_T";
+	
+	// テーブル名 EXCLUSION_INSTA_USER_M
+	public static String TB_EXCLUSION_INSTA_USER_M = "EXCLUSION_INSTA_USER_M";
+		
+	// テーブル名 DUMMY_INSTA_IMAGE_M
+	public static String TB_DUMMY_INSTA_IMAGE_M = "DUMMY_INSTA_IMAGE_M";
+	
+	// テーブル名 NG_WORD_M
+	public static String TB_NG_WORD_M = "NG_WORD_M";
 
 }

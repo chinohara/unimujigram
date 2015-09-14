@@ -73,7 +73,6 @@ public class ApiService {
      	try {
 			Long dateTimeLong = new SimpleDateFormat("yyyyMMddHHmm").parse(batchCreatedTime.getBatchCreatedDate()).getTime();
 			dtoDisp.setBatchCreatedDate(dateTimeLong.toString());
-			System.out.println("!!!!!!!!!" + dateTimeLong.toString());
 		} catch (ParseException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

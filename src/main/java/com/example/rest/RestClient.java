@@ -27,6 +27,10 @@ public class RestClient {
     public String getString(String url, MediaType type) {
         Client client = getClient();
         WebResource resource = client.resource(url);
+        
+        //Debug
+        System.out.println("URL:" + url);
+        
         ClientResponse response = resource.accept(type).get(ClientResponse.class);
         switch (response.getStatus()) {
         case 200 :  // OK

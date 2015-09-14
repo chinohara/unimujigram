@@ -43,12 +43,123 @@ public class CreateTables {
 		createInstaInfoTb();
 		
 		// BATCH_CREATED_TIME_T Table を作成
-				createBatchCreatedTimeTb();
+		createBatchCreatedTimeTb();
+				
+		// EXCLUSION_INSTA_USER_M Table を作成
+		createExclusionInstaUserTb();
+		
+		// DUMMY_INSTA_IMAGE_M Table を作成
+		createDummyInstaImageTb();
+		
+		// NG_WORD_M Table を作成
+		createNgWordTb();
 		
 		// テーブルを削除したい場合にコメントアウト
 //		dynamoDB.getTable("INSTA_INFO_T").delete();
 		
     }
+
+	private static void createNgWordTb() {
+		// テーブルの存在チェック
+		if (IsExistedTable(CommonConstants.TB_NG_WORD_M)) {
+			System.out.println("Existed Table:" + CommonConstants.TB_NG_WORD_M);
+			return;
+		}
+		
+		// テーブル情報の指定
+		ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        attributeDefinitions.add(new AttributeDefinition()
+            .withAttributeName("Id")
+            .withAttributeType("N"));
+
+        ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
+        keySchema.add(new KeySchemaElement()
+            .withAttributeName("Id")
+            .withKeyType(KeyType.HASH));
+
+        CreateTableRequest request = new CreateTableRequest()
+            .withTableName(CommonConstants.TB_NG_WORD_M)
+            .withKeySchema(keySchema)
+            .withAttributeDefinitions(attributeDefinitions)
+            .withProvisionedThroughput(new ProvisionedThroughput()
+                .withReadCapacityUnits(1L)
+                .withWriteCapacityUnits(1L));
+
+        System.out.println("Issuing CreateTable request for " + CommonConstants.TB_NG_WORD_M);
+        CreateTableResult createTableResult = dbClient.createTable(request);
+        
+        System.out.println("Created Table:" + createTableResult.toString());
+        return;
+		
+	}
+
+	private static void createDummyInstaImageTb() {
+		// テーブルの存在チェック
+		if (IsExistedTable(CommonConstants.TB_DUMMY_INSTA_IMAGE_M)) {
+			System.out.println("Existed Table:" + CommonConstants.TB_DUMMY_INSTA_IMAGE_M);
+			return;
+		}
+		
+		// テーブル情報の指定
+		ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        attributeDefinitions.add(new AttributeDefinition()
+            .withAttributeName("Id")
+            .withAttributeType("N"));
+
+        ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
+        keySchema.add(new KeySchemaElement()
+            .withAttributeName("Id")
+            .withKeyType(KeyType.HASH));
+
+        CreateTableRequest request = new CreateTableRequest()
+            .withTableName(CommonConstants.TB_DUMMY_INSTA_IMAGE_M)
+            .withKeySchema(keySchema)
+            .withAttributeDefinitions(attributeDefinitions)
+            .withProvisionedThroughput(new ProvisionedThroughput()
+                .withReadCapacityUnits(1L)
+                .withWriteCapacityUnits(1L));
+
+        System.out.println("Issuing CreateTable request for " + CommonConstants.TB_DUMMY_INSTA_IMAGE_M);
+        CreateTableResult createTableResult = dbClient.createTable(request);
+        
+        System.out.println("Created Table:" + createTableResult.toString());
+        return;
+		
+	}
+
+	private static void createExclusionInstaUserTb() {
+		// テーブルの存在チェック
+		if (IsExistedTable(CommonConstants.TB_EXCLUSION_INSTA_USER_M)) {
+			System.out.println("Existed Table:" + CommonConstants.TB_EXCLUSION_INSTA_USER_M);
+			return;
+		}
+		
+		// テーブル情報の指定
+		ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        attributeDefinitions.add(new AttributeDefinition()
+            .withAttributeName("Id")
+            .withAttributeType("N"));
+
+        ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
+        keySchema.add(new KeySchemaElement()
+            .withAttributeName("Id")
+            .withKeyType(KeyType.HASH));
+
+        CreateTableRequest request = new CreateTableRequest()
+            .withTableName(CommonConstants.TB_EXCLUSION_INSTA_USER_M)
+            .withKeySchema(keySchema)
+            .withAttributeDefinitions(attributeDefinitions)
+            .withProvisionedThroughput(new ProvisionedThroughput()
+                .withReadCapacityUnits(1L)
+                .withWriteCapacityUnits(1L));
+
+        System.out.println("Issuing CreateTable request for " + CommonConstants.TB_EXCLUSION_INSTA_USER_M);
+        CreateTableResult createTableResult = dbClient.createTable(request);
+        
+        System.out.println("Created Table:" + createTableResult.toString());
+        return;
+		
+	}
 
 	private static void createBatchCreatedTimeTb() {
 		// テーブルの存在チェック

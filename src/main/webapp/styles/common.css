@@ -13,42 +13,45 @@ a:hover,
 a:focus {
     text-decoration: underline;
 }
-
+/*Main Color: #AFEEEE*/
 body {
 	font-family:  "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", Meiryo, sans-serif;
-    background: rgb(255, 231, 229);  /*FFE7E5*/
+    background: #FFFFFF;
 	color: #737373;
 }
 
 @font-face {
-    font-family: 'M+ 1p black';
-    src: url('../fonts/mplus-1p-black-sub.eot');
-    src: url('../fonts/mplus-1p-black-sub.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/mplus-1p-black-sub.woff') format('woff'),
-    url('../fonts/mplus-1p-black-sub.ttf') format('truetype');
-    
-    font-family: 'M+ 1p light';
-    src: url('../fonts/mplus-1p-light-sub.eot');
-    src: url('../fonts/mplus-1p-light-sub.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/mplus-1p-light-sub.woff') format('woff'),
-    url('../fonts/mplus-1p-light-sub.ttf') format('truetype');
+    font-family: 'M+ 1c regular';
+    src: url('../fonts/mplus-1c-regular-sub.eot');
+    src: url('../fonts/mplus-1c-regular-sub.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/mplus-1c-regular-sub.woff') format('woff'),
+    url('../fonts/mplus-1c-regular-sub.ttf') format('truetype');
 }
 
 .header {
 	font-weight:bold; 
-	color: #383838;
+	color: #FFFFFF;
 	
 	text-align: center;
     top: auto;
     /*margin: 3em auto;*/
 }
 
-.header h1{
-	font-family: 'M+ 1p black';
+.header h2{
+	font-family: 'M+ 1c regular';
 }
-/*ちびスタお洒落キッズのためのInstagramViewer、。可愛い子ども集まれ for 親バカ*/
+
+/*@font-face {
+    font-family: 'M+ 1c thin';
+    src: url('../fonts/mplus-1c-thin-sub.eot');
+    src: url('../fonts/mplus-1c-thin-sub.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/mplus-1c-thin-sub.woff') format('woff'),
+    url('../fonts/mplus-1c-thin-sub.ttf') format('truetype');
+}*/
+/*かわよくカワヨクkawayokuKawayokuすべての子供を可愛く格好良くかっこカッコ、。！*/
 .header h4{
-	font-family: 'M+ 1p light';
+	/*font-family: 'M+ 1c thin';*/
+	font-family: 'M+ 1c regular';
 }
 
 .pure-img-responsive {
@@ -61,9 +64,7 @@ body {
 }
 
 .sidebar {
-    /*background: rgb(61, 79, 93);*/
-    background: rgb(247, 167, 159);  /*#F7A79F*/
-    color: #fff;
+    background: #AFEEEE;
 }
 
 .brand-title,
@@ -71,7 +72,7 @@ body {
     margin: 0;
 }
 .brand-title {
-    text-transform: uppercase;
+   /* text-transform: uppercase;*/
 }
 .brand-tagline {
     font-weight: 300;
@@ -118,6 +119,8 @@ body {
 .footer {
     text-align: center;
     padding: 1em 0;
+    background: #AFEEEE;
+    color: #FFFFFF;
 }
 .footer a {
     font-size: 80%;

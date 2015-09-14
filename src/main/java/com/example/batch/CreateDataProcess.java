@@ -23,9 +23,11 @@ import com.common.CommonUtil;
 import com.example.db.DynamoDBClient;
 import com.example.models.BatchCreatedTime;
 import com.example.models.CountInstaTag;
+import com.example.models.ExclusionInstaUser;
 import com.example.models.InstaInfo;
 import com.example.models.InstagramInfo;
 import com.example.models.InstagramRespDto;
+import com.example.models.NgWord;
 import com.example.models.SearchInstaTag;
 import com.example.rest.RestClient;
 
@@ -61,6 +63,16 @@ public class CreateDataProcess {
         // 取得した情報に優先度をつけるタグを取得
         List<CountInstaTag> countTags = mapper.scan(CountInstaTag.class, scanExpression);
         
+        // 除外するユーザリストを取得
+        List<ExclusionInstaUser> exclusionInstaUsers = mapper.scan(ExclusionInstaUser.class, scanExpression);
+        List<String> exclusionInstaUsersList = new ArrayList<String>();
+        for (ExclusionInstaUser exclusionInstaUser : exclusionInstaUsers) {
+        	exclusionInstaUsersList.add(exclusionInstaUser.getUserName());
+        }
+        
+        //NG Wordを取得
+        List<NgWord> ngWords = mapper.scan(NgWord.class, scanExpression);
+        
         // InstagramIdのset(重複確認に使用)
         Set<String> set = new HashSet<String>();
         
@@ -74,25 +86,39 @@ public class CreateDataProcess {
         	
         	// 取得したデータの詰替えとカウント
             for (InstagramInfo  instagramInfo : dto.getData()) {
-              String instaId = instagramInfo.getId();
-              // 重複を除外、表示の優先度を決めるため、タグをカウントして、1より大きいもののみ対象とする
-              if (!set.contains(instaId) && countTag(instagramInfo.getTags(), countTags) > 1) {
-                // 存在しない場合、setに追加、Listに追加
-                set.add(instaId);
+            	// 重複していないかチェック
+            	if (set.contains(instagramInfo.getId())) {
+            		continue;
+            	}
+            	
+            	// 除外対象ユーザかどうかチェック
+            	if (exclusionInstaUsersList.contains(instagramInfo.getUser().getUsername())) {
+            		continue;
+            	}
+            	
+            	// NGワードが含まれていないかチェック
+            	if (containNgWord(instagramInfo.getCaption().getText(), ngWords)) {
+            		continue;
+            	}
+            	
+            	// タグをカウントして、1より大きいもののみ対象とする
+            	if (countTag(instagramInfo.getTags(), countTags) > 1) {
+            		// 存在しない場合、setに追加、Listに追加
+            		set.add(instagramInfo.getId());
                 
-                // 値の詰め替え
-                InstaInfo instaInfo = new InstaInfo();
-                instaInfo.setBatchCreatedId(dateTimeStr);
-                instaInfo.setCreateDateUserId(instagramInfo.getCreatedTime().concat("_").concat(instagramInfo.getUser().getId()));
-                instaInfo.setUserName(instagramInfo.getUser().getUsername());
-                instaInfo.setUserPictureUrl(instagramInfo.getUser().getProfilePicture());
-                instaInfo.setLink(instagramInfo.getLink());
-                instaInfo.setCreateDate(instagramInfo.getCreatedTime());
-                instaInfo.setImageUrl(instagramInfo.getImages().getLowResolution().getUrl());
-                
-                // 保存用Listに追加
-                instaInfoList.add(instaInfo);
-              }
+	                // 値の詰め替え
+	                InstaInfo instaInfo = new InstaInfo();
+	                instaInfo.setBatchCreatedId(dateTimeStr);
+	                instaInfo.setCreateDateUserId(instagramInfo.getCreatedTime().concat("_").concat(instagramInfo.getUser().getId()));
+	                instaInfo.setUserName(instagramInfo.getUser().getUsername());
+	                instaInfo.setUserPictureUrl(instagramInfo.getUser().getProfilePicture());
+	                instaInfo.setLink(instagramInfo.getLink());
+	                instaInfo.setCreateDate(instagramInfo.getCreatedTime());
+	                instaInfo.setImageUrl(instagramInfo.getImages().getLowResolution().getUrl());
+	                
+	                // 保存用Listに追加
+	                instaInfoList.add(instaInfo);
+            	}
             }
         }
         // DBのデータを削除
@@ -167,5 +193,22 @@ public class CreateDataProcess {
         	}
         }
     	return count;
+    }
+    
+    /**
+	 * NG ワードが含まれているか判定する
+	 * @param checkStr チェック対象の文字列. ngWords NGワードのリスト
+	 * @return flag (NGワード有りがtrue)
+	 */
+    private static boolean containNgWord(String checkStr, List<NgWord> ngWords) {
+    	Boolean ngFlag = false;
+    	for (NgWord ngwordInfo : ngWords) {
+    		// NGワードがある
+    		if (checkStr.indexOf(ngwordInfo.getNgWord()) != -1) {
+    			ngFlag = true;
+    			break;
+        	}
+    	}
+    	return  ngFlag;
     }
 }
