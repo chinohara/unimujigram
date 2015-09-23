@@ -10,7 +10,7 @@ var app = angular.module('myApp', []);
 app.controller('mainCtrl', ['$scope', 'ApiData', function ($scope, ApiData) {
     // 初期ロード処理
     $scope.Reload = function () {
-        ApiData.get(INSTAGRAM_API_URL_BABYS).then(function(res){
+        ApiData.get(INSTAGRAM_API_URL_SNAP).then(function(res){
             // $scope.instaInfos = res.data.instaInfos;
             $scope.resp = res.data;
             $scope.show_loading = false;

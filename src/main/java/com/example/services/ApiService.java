@@ -1,8 +1,11 @@
 package com.example.services;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +13,7 @@ import java.util.Map;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
@@ -19,8 +23,10 @@ import com.common.CommonConstants;
 import com.common.CommonUtil;
 import com.example.db.DynamoDBClient;
 import com.example.models.BatchCreatedTime;
+import com.example.models.ExclusionInstaUser;
 import com.example.models.InstaInfo;
 import com.example.models.InstaInfoForDisp;
+import com.example.models.InstagramInfo;
 import com.example.models.InstagramRespDto;
 import com.example.models.Time;
 import com.example.rest.RestClient;
@@ -47,7 +53,7 @@ public class ApiService {
     }
 
     @GET
-    @Path("babys")
+    @Path("snap")
     public InstaInfoForDisp getBabys() {
     	
     	// DynamoDBのClient取得
@@ -78,38 +84,65 @@ public class ApiService {
 			e.printStackTrace();
 		}
      	
+     	// 全件検索のパラメータ用に生成
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+     	// 除外するユーザリストを取得
+        List<ExclusionInstaUser> exclusionInstaUsers = mapper.scan(ExclusionInstaUser.class, scanExpression);
+        List<String> exclusionInstaUsersList = new ArrayList<String>();
+        for (ExclusionInstaUser exclusionInstaUser : exclusionInstaUsers) {
+        	exclusionInstaUsersList.add(exclusionInstaUser.getUserName());
+        }
+     	
+     	// petitmoタグの画像データ格納用のリスト
+        List<InstaInfo> petitmoInfoList = new ArrayList<InstaInfo>();
+     	
+     	// petitmoダグの画像を取得
+     	InstagramRespDto dto = apiCall(CommonConstants.TAG_PETITMO, CommonConstants.INSTA_GET_COUNT);
+     	// データの詰め替え
+     	for (InstagramInfo  instagramInfo : dto.getData()) {
+     		// 除外対象ユーザかどうかチェック
+        	if (exclusionInstaUsersList.contains(instagramInfo.getUser().getUsername())) {
+        		continue;
+        	}
+     		
+     		InstaInfo instaInfo = new InstaInfo();
+     		// オンラインによる取得のためNullを設定
+            instaInfo.setBatchCreatedId(null);
+            instaInfo.setCreateDateUserId(instagramInfo.getCreatedTime().concat("_").concat(instagramInfo.getUser().getId()));
+            instaInfo.setUserName(instagramInfo.getUser().getUsername());
+            instaInfo.setUserPictureUrl(instagramInfo.getUser().getProfilePicture());
+            instaInfo.setLink(instagramInfo.getLink());
+            instaInfo.setCreateDate(instagramInfo.getCreatedTime());
+            instaInfo.setImageUrl(instagramInfo.getImages().getLowResolution().getUrl());
+            
+            // petitmoタグの画像Listに追加
+            petitmoInfoList.add(instaInfo);
+     	}
+     	dtoDisp.setPetitmoInfos(petitmoInfoList);
+     	
     	
         return dtoDisp;
     }
     
-    @GET
-    @Path("kids")
-    public InstagramRespDto getKids() {		
-		// APIを呼び出す
-        InstagramRespDto dto = apiCall(CommonConstants.API_URL_KIDS);
-        return dto;
-    }
-    
-    @GET
-    @Path("snap")
-    public InstagramRespDto getSnap() {		
-		// APIを呼び出す
-        InstagramRespDto dto = apiCall(CommonConstants.API_URL_SNAP);
-        return dto;
-    }
-    
-    private InstagramRespDto apiCall(String uri) {
+    private InstagramRespDto apiCall(String tag, String count) {
     	// APICallを行うクライアント生成
         RestClient client = new RestClient("admin", "admin");
         
         // API URLの生成
         StringBuilder buf = new StringBuilder();
-        buf.append(uri);
+        buf.append(CommonConstants.API_URL_BASE);
+        try {
+			buf.append(URLEncoder.encode(tag, "UTF-8"));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+        buf.append(CommonConstants.aPI_URL_AFTER_TAG);
         buf.append(CommonConstants.ACCESS_TOKEN_URL);
         buf.append(CommonConstants.CLIENT_ID_URL);
         buf.append(CommonUtil.getClientApiKey());
         buf.append(CommonConstants.COUNT_URL);
-        buf.append(CommonConstants.INSTA_GET_COUNT);
+        buf.append(count);
         String url = buf.toString();
         
         // API 呼び出し

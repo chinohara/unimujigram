@@ -5,6 +5,8 @@ import java.util.List;
 public class InstaInfoForDisp {
 	private List<InstaInfo> instaInfos;
 	
+	private List<InstaInfo> petitmoInfos;
+	
 	private String batchCreatedDate;
 
 	public List<InstaInfo> getInstaInfos() {
@@ -13,6 +15,14 @@ public class InstaInfoForDisp {
 
 	public void setInstaInfos(List<InstaInfo> instaInfos) {
 		this.instaInfos = instaInfos;
+	}
+
+	public List<InstaInfo> getPetitmoInfos() {
+		return petitmoInfos;
+	}
+
+	public void setPetitmoInfos(List<InstaInfo> petitmoInfos) {
+		this.petitmoInfos = petitmoInfos;
 	}
 
 	public String getBatchCreatedDate() {

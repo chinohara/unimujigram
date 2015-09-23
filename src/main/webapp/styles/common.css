@@ -59,10 +59,12 @@ body {
 }
 
 .topic {
-	background-color: #FFDABB;
+	background-color: #FFF;
+	border-top: medium solid #7FD7D7;
+	border-bottom: medium solid #7FD7D7;
 	margin: 5px 7px 5px 7px;
 	padding: 5px 0px 5px 5px;
-	color: #FFF;
+	color: #7FD7D7;
 	font-size: 15px;
 }
 
@@ -93,6 +95,11 @@ body {
 
 .content-user-name {
 	margin: 5px 5px 5px 5px;
+}
+
+.header-about {
+	background-color: #AFEEEE;
+	color: #FFF;
 }
 
 .about {
@@ -217,18 +224,18 @@ body {
 }
 
 #page-top a:link {/*未訪問のリンク*/
-    color:#FFBBBB;
+    color:#FFEFE2;
     font-style:normal;
     text-decoration:underline;
 }
 
 #page-top a:visited {/*訪問後のリンク*/
-    color:#FF7575;
+    color:#FFC697;
     text-decoration:underline;
 }
 
 #page-top a:hover {/*マウスをのせたとき*/
-    color:#FF9797;
+    color:#FFB475;
     font-style:normal;
     text-decoration:underline;
 }
