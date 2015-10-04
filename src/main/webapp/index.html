@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="chinohara'page.">
     <!-- オープングラフプロトコル。通称OGプロトコル start -->
-    <meta property="og:title" content="Petitmo.co"/>
+    <meta property="og:title" content="Petitmo.net"/>
     <meta property="og:description" content="子供をもっと可愛く、格好良く！Instagram viewer."/>
     <!--<meta property="og:image" content="http://chinohara.github.io/images/PENGIN.png"/>-->
     <!--<meta property="og:url" content="http://chinohara.github.io/"/>-->
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css">
 	<link href="/styles/common.css" rel="stylesheet" type="text/css" media="all" />
-	
+	<title>Petitmo|子供をもっと可愛く、格好良く！</title>
 	<!--<script src="/scripts/controllers/main.js"></script>-->
 </head>
 <body ng-controller="mainCtrl">
@@ -48,93 +48,111 @@
 	        </div>
 	    </div>
 	</div>
+	
+	
 	<!--ヘッダー-->
-	<div class="pure-g header">
-		<!--ランディング-->
-		<div class="pure-u-1 pure-u-md-2-3 landing">
+	<div class="pure-g header space">
+		<!--ランディング Main-->
+		<div class="pure-u-1-1 pure-u-md-18-24">
+			<img class="pure-img" src="/img/2469413782_467ae54f76_o.jpg"></img>
+		</div>
+		<!--ランディング Sub-->
+		<div class="pure-u-1-1 pure-u-md-6-24">
 			<div class="pure-g">
-				<div class="landing--small">
-					<div class="pure-u-1">
-						<img class="pure-img" src="/img/2469413782_a9ac59584b.jpg"></img>
-					</div>
+				<div class="pure-u-1-1">
+					<div class="caption"><i class="fa fa-thumbs-o-up fa-lg"></i> SNSでシェアする</div>
 				</div>
-				<div class="landing--large">
-					<div class="pure-u-1-3"></div>
-					<div class="pure-u-1-3">
-						<img class="pure-img" src="/img/2469413550_cfbcd460cf.jpg"></img>
+				<!--Facebookでシェア-->
+				<div class="pure-u-1-3">
+					<div class="fb">
+						<img class="pure-img" src="/img/fb-art.jpg">
+          					<a id="share_fb" href="http://www.facebook.com/share.php?u=http://petitmo.net"onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"></a>
+          				</img>
 					</div>
-					<div class="pure-u-1-3">
-						<img class="pure-img" src="/img/4324910190_21927c5513.jpg"></img>
-					</div>
+          		</div>
+          		<!--Twitterでシェア-->
+          		<div class="pure-u-1-3">
+          			<div class="tw">
+          				<img class="pure-img" src="/img/TwitterLogo_55acee.png">
+          					<a id="share_tw" href="https://twitter.com/share?url=http://petitmo.net&text=&Petitmo%7c%e5%ad%90%e4%be%9b%e3%82%92%e3%82%82%e3%81%a3%e3%81%a8%e5%8f%af%e6%84%9b%e3%81%8f%e3%80%81%e6%a0%bc%e5%a5%bd%e8%89%af%e3%81%8f%ef%bc%81via=Petitmo" target="blank"></a>
+          				</img>
+          			</div>
+          		</div>
+          		<!--LINEで送る-->
+          		<div class="pure-u-1-3">
+          			<div class="line">
+          				<img class="pure-img" src="/img/linebutton_40x40.png">
+          					<a id="share_line" href="http://line.me/R/msg/text/?Petitmo%7c%e5%ad%90%e4%be%9b%e3%82%92%e3%82%82%e3%81%a3%e3%81%a8%e5%8f%af%e6%84%9b%e3%81%8f%e3%80%81%e6%a0%bc%e5%a5%bd%e8%89%af%e3%81%8f%ef%bc%81%0D%0Ahttp://petitmo.net"></a>
+          				</img>
+          			</div>
 				</div>
 			</div>
 		</div>
-		<!--スポンサ-->
-		<div class="pure-u-1 pure-u-md-1-3 sponsor"></div>
 	</div>
-	<!--メイン-->
-	<div class="pure-g main">
-		<!--メインコンテンツ-->
-		<div ng-show="show_loading">
-	    	<div class="loader">Loading...</div>
-	  	</div>
-	  	<div ng-show="show_photos">
-			<div class="pure-u-1 pure-u-md-2-3 contents-main">
-				<!--コンテンツヘッダー-->
-				<div class="topic">
-					<i class="fa fa-calendar fa-lg"></i> {{resp.batchCreatedDate | date:'M / d (EEE)'}}
-					<i class="fa fa-clock-o fa-lg"></i> {{resp.batchCreatedDate | date:'a h 時'}}更新
-				</div>
-				<div class="pure-g">
-		            <div class="pure-u-1-2 pure-u-md-1-3" ng-repeat="instaInfo in resp.instaInfos" ng-hide="show_loading">
-		                <!--コンテンツ-->
-		                <div class="content">
-			                <a ng-href="{{ instaInfo.link }}">
-			                	<img class="pure-img" ng-src="{{ instaInfo.imageUrl }}">
-			                </a>
-			                <div class="content-image-meta">出典:Instagram.com</div>
-			                <div class="pure-g content-meta">
-			                	<div class="pure-u-1-4">
-			                		<img class="pure-img content-image-user" ng-src="{{ instaInfo.userPictureUrl}}">
-			                	</div>
-			                	<div class="pure-u-3-4">
-			                		<div class="content-user-name" ng-bind="instaInfo.userName"></div>
-			                	</div>
-			                </div>
-		                </div>
-		            </div> 
-		         </div>
-				<!--ページング-->
+	<!--メインー-->
+	<div class="pure-g main space">
+		<!--コンテンツ Main-->
+		<div class="pure-u-1-1 pure-u-md-18-24 contents-main">
+			<!--コンテンツヘッダー-->
+			<div class="topic">
+				<i class="fa fa-calendar fa-lg"></i> {{resp.batchCreatedDate | date:'M / d (EEE)'}}
+				<i class="fa fa-clock-o fa-lg"></i> {{resp.batchCreatedDate | date:'a h 時'}}更新
 			</div>
-			<!--サブ・コンテンツ-->
-			<div class="pure-u-1 pure-u-md-1-3 contents-sub">
-				<div class="topic"><i class="fa fa-camera-retro fa-lg"></i> #petitmo</div>
-				<div class="pure-g">
-		            <div class="pure-u-1-2 pure-u-md-1" ng-repeat="petitmoInfo in resp.petitmoInfos" ng-hide="show_loading">
-		                <!--コンテンツ-->
-		                <div class="content">
-			                <a ng-href="{{ petitmoInfo.link }}">
-			                	<img class="pure-img" ng-src="{{ petitmoInfo.imageUrl }}">
-			                </a>
-			                <div class="content-image-meta">出典:Instagram.com</div>
-			                <div class="pure-g content-meta">
-			                	<div class="pure-u-1-4">
-			                		<img class="pure-img content-image-user" ng-src="{{ petitmoInfo.userPictureUrl}}">
-			                	</div>
-			                	<div class="pure-u-3-4">
-			                		<div class="content-user-name" ng-bind="petitmoInfo.userName"></div>
-			                	</div>
-			                </div>
+			<div ng-show="show_loading">
+	    		<div class="loader">Loading...</div>
+	  		</div>
+			<!--コンテンツグループ-->
+			<div class="pure-g contents-main" ng-show="show_photos">
+				<div class="pure-u-1-2 pure-u-md-1-3" ng-repeat="instaInfo in resp.instaInfos" ng-hide="show_loading">
+					<!--コンテンツ-->
+	                <div class="content">
+		                <a ng-href="{{ instaInfo.link }}">
+		                	<img class="pure-img" ng-src="{{ instaInfo.imageUrl }}">
+		                </a>
+		                <div class="content-image-meta">出典:Instagram.com</div>
+		                <div class="pure-g content-meta">
+		                	<div class="pure-u-1-4">
+		                		<img class="pure-img content-image-user" ng-src="{{ instaInfo.userPictureUrl}}">
+		                	</div>
+		                	<div class="pure-u-3-4">
+		                		<div class="content-user-name" ng-bind="instaInfo.userName"></div>
+		                	</div>
 		                </div>
-		            </div> 
-		         </div>
+	                </div>
+				</div>
+			</div>
+		</div>
+		<!--コンテンツ Sub-->
+		<div class="pure-u-1-1 pure-u-md-6-24 contents-sub">
+			<div class="topic"><i class="fa fa-camera-retro fa-lg"></i> #petitmo</div>
+			<!--コンテンツ-->
+			<div class="pure-g">
+				<div class="pure-u-1-1" ng-repeat="petitmoInfo in resp.petitmoInfos" ng-hide="show_loading">
+					<!--コンテンツ-->
+	                <div class="content">
+		                <a ng-href="{{ petitmoInfo.link }}">
+		                	<img class="pure-img" ng-src="{{ petitmoInfo.imageUrl }}">
+		                </a>
+		                <div class="content-image-meta">出典:Instagram.com</div>
+		                <div class="pure-g content-meta">
+		                	<div class="pure-u-1-4">
+		                		<img class="pure-img content-image-user" ng-src="{{ petitmoInfo.userPictureUrl}}">
+		                	</div>
+		                	<div class="pure-u-3-4">
+		                		<div class="content-user-name" ng-bind="petitmoInfo.userName"></div>
+		                	</div>
+		                </div>
+	                </div>
+				</div>
 			</div>
 		</div>
 	</div>
+	
+	
 	<!--ページトップ-->
 	<div id="page-top">
-   				<p><a href="#" id="page-top1"><i class="fa fa-hand-pointer-o fa-2x"></i>
-</a></p>
+   		<p><a href="#" id="page-top1"><i class="fa fa-hand-pointer-o fa-2x"></i>
+		</a></p>
 	</div>
 	<!--フッター-->
 	<div class="pure-g footter">
